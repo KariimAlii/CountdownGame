@@ -1,10 +1,11 @@
-﻿import {useState} from "react";
+﻿import {useRef, useState} from "react";
 
-// If the timer variable is defined here , it will be shared across different
-// timerchallenge components , so different components will redefine it
-let timer;
+
 
 export default function TimerChallenge({ title, targetTime }) {
+
+    // refs will not be lost or redefined when the TimerChallenge component re-executes
+    const timer = useRef(null);
 
     const [timerExpired, setTimerExpired] = useState(false);
     const [timerStarted, setTimerStarted] = useState(false);
@@ -12,13 +13,13 @@ export default function TimerChallenge({ title, targetTime }) {
 
     function handleStart() {
         setTimerStarted(true);
-        timer = setTimeout(() => {
+        timer.current = setTimeout(() => {
             setTimerExpired(true);
         }, targetTime * 1000);
     }
 
     function handleStop() {
-        clearTimeout(timer)
+        clearTimeout(timer.current)
         setTimerStarted(false);
     }
 
