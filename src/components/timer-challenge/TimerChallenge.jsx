@@ -5,6 +5,8 @@
 export default function TimerChallenge({ title, targetTime }) {
 
     // refs will not be lost or redefined when the TimerChallenge component re-executes
+    // this ref is component-specific , and not shared between different components
+    // so that 2 components can run timers at the same times with 2 different refs
     const timer = useRef(null);
 
     const [timerExpired, setTimerExpired] = useState(false);
