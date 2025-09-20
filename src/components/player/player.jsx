@@ -7,6 +7,7 @@ export default function Player() {
     function handleClick() {
         // refPlayerName.current  ---> Native Input Html Element
         setPlayerName(refPlayerName.current.value);
+        refPlayerName.current.value = '';
     }
 
     return (
