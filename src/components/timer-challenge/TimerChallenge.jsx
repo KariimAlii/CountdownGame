@@ -1,13 +1,15 @@
 ﻿import {useState} from "react";
 
+// If the timer variable is defined here , it will be shared across different
+// timerchallenge components , so different components will redefine it
+let timer;
+
 export default function TimerChallenge({ title, targetTime }) {
 
     const [timerExpired, setTimerExpired] = useState(false);
     const [timerStarted, setTimerStarted] = useState(false);
 
-    // The timer is not stopped , everytime the state changes
-    // the component function is re-executed and timer variable is re-defined
-    let timer;
+
     function handleStart() {
         setTimerStarted(true);
         timer = setTimeout(() => {
