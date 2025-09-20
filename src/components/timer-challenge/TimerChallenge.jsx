@@ -9,6 +9,7 @@ export default function TimerChallenge({ title, targetTime }) {
     // this ref is component-specific , and not shared between different components
     // so that 2 components can run timers at the same times with 2 different refs
     const timer = useRef(null);
+    const dialog = useRef(null);
 
     const [timerExpired, setTimerExpired] = useState(false);
     const [timerStarted, setTimerStarted] = useState(false);
@@ -18,6 +19,7 @@ export default function TimerChallenge({ title, targetTime }) {
         setTimerStarted(true);
         timer.current = setTimeout(() => {
             setTimerExpired(true);
+            dialog.current.showModal();
         }, targetTime * 1000);
     }
 
@@ -28,7 +30,7 @@ export default function TimerChallenge({ title, targetTime }) {
 
     return (
         <>
-            {timerExpired && <ResultModal targetTime={targetTime} result="lost" />}
+            {<ResultModal ref={dialog} targetTime={targetTime} result="lost" />}
             <section className="challenge">
                 <h2>{title}</h2>
                 {timerExpired && (
