@@ -5,11 +5,17 @@ export default function TimerChallenge({ title, targetTime }) {
     const [timerExpired, setTimerExpired] = useState(false);
     const [timerStarted, setTimerStarted] = useState(false);
 
+    let timer;
     function handleStart() {
         setTimerStarted(true);
-        setTimeout(() => {
+        timer = setTimeout(() => {
             setTimerExpired(true);
         }, targetTime * 1000);
+    }
+
+    function handleStop() {
+        clearTimeout(timer)
+        setTimerStarted(false);
     }
 
     return (
@@ -23,7 +29,7 @@ export default function TimerChallenge({ title, targetTime }) {
             </p>
             <p>
                 <button
-                    onClick={handleStart}
+                    onClick={timerStarted ? handleStop: handleStart}
                 >
                     {timerStarted ? 'Stop' : 'Start'} Challenge
                 </button>
